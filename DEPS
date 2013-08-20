@@ -11,9 +11,9 @@ deps_os = {
   "android": {
     "src/data": 
       (Var("googlecode_url") % "webrtc") + "/trunk/data",
-    "src/third_party/google-gflags":
-      (Var("googlecode_url") % "webrtc") + "/trunk/third_party/google-gflags",
-    "src/third_party/google-gflags/src":
-      "http://google-gflags.googlecode.com/svn/trunk/src@45",
+    "src/third_party/gflags":
+      (Var("googlecode_url") % "webrtc") + "/trunk/third_party/gflags",
+    "src/third_party/gflags/src":
+      "http://gflags.googlecode.com/svn/trunk/src@84",
   },
 }
