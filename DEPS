@@ -7,6 +7,11 @@ vars = {
   "googlecode_url": "http://%s.googlecode.com/svn",
 }
 
+deps = {
+  "src/third_party/webrtc_apprtc":
+    "https://webrtc.googlecode.com/svn/trunk/samples/js",
+}
+
 deps_os = {
   "android": {
     "src/data": 
@@ -17,3 +22,12 @@ deps_os = {
       "http://gflags.googlecode.com/svn/trunk/src@84",
   },
 }
+
+hooks = [
+  {
+    "pattern": ".",
+    "action" : ["python",
+                "webrtc.DEPS/download_appengine_sdk.py",
+                "webrtc.DEPS"],
+  },
+]
