@@ -9,7 +9,7 @@ vars = {
 
 deps = {
   "src/third_party/webrtc_apprtc":
-    "https://webrtc.googlecode.com/svn/trunk/samples/js",
+    (Var("googlecode_url") % "webrtc") + "/trunk/samples/js",
 }
 
 deps_os = {
