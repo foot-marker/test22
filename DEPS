@@ -30,4 +30,11 @@ hooks = [
                 "webrtc.DEPS/download_appengine_sdk.py",
                 "webrtc.DEPS"],
   },
+  {
+    # "Build" AppRTC, i.e. move it to the out/ dir where the browser test
+    # can find it. This is only done on runhooks.
+    "pattern": ".",
+    "action" : ["python",
+                "webrtc.DEPS/copy_apprtc.py"],
+  }
 ]
