@@ -14,6 +14,8 @@ import shutil
 
 
 if __name__ == '__main__':
-  shutil.rmtree('src/out/apprtc', ignore_errors=True);
+  shutil.rmtree('src/out/apprtc', ignore_errors=True)
   shutil.copytree('src/third_party/webrtc_apprtc/apprtc',
                   'src/out/apprtc', ignore=shutil.ignore_patterns('.svn'))
+  shutil.copyfile('src/third_party/webrtc_apprtc/base/adapter.js',
+		  'src/out/apprtc/js/adapter.js')
