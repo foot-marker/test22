@@ -16,6 +16,8 @@ deps_os = {
   "android": {
     "src/data": 
       (Var("googlecode_url") % "webrtc") + "/trunk/data",
+    "src/resources": 
+      (Var("googlecode_url") % "webrtc") + "/trunk/resources",
     "src/third_party/gflags":
       (Var("googlecode_url") % "webrtc") + "/trunk/third_party/gflags",
     "src/third_party/gflags/src":
@@ -36,5 +38,15 @@ hooks = [
     "pattern": ".",
     "action" : ["python",
                 "webrtc.DEPS/copy_apprtc.py"],
-  }
+  },
+  {
+    # Download test resources, i.e. video and audio files from Google Storage.
+    "pattern": "\\.sha1",
+    "action": ["download_from_google_storage",
+               "--directory",
+               "--recursive",
+               "--num_threads=10",
+               "--bucket", "chromium-webrtc-resources",
+               "src/resources"],
+  },
 ]
