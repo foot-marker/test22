@@ -10,6 +10,18 @@ vars = {
 deps = {
   "src/third_party/webrtc_apprtc":
     (Var("googlecode_url") % "webrtc") + "/trunk/samples/js",
+  "webrtc.DEPS/third_party/manifestdestiny":
+    "/trunk/deps/third_party/manifestdestiny@240893",
+  "webrtc.DEPS/third_party/mozdownload":
+    "/trunk/deps/third_party/mozdownload@240893",
+  "webrtc.DEPS/third_party/mozinfo":
+    "/trunk/deps/third_party/mozinfo@240893",
+  "webrtc.DEPS/third_party/mozprocess":
+    "/trunk/deps/third_party/mozprocess@240893",
+  "webrtc.DEPS/third_party/mozprofile":
+    "/trunk/deps/third_party/mozprofile@240893",
+  "webrtc.DEPS/third_party/mozrunner":
+    "/trunk/deps/third_party/mozrunner@240893",
 }
 
 deps_os = {
@@ -48,5 +60,13 @@ hooks = [
                "--num_threads=10",
                "--bucket", "chromium-webrtc-resources",
                "src/resources"],
+  },
+  {
+    # Download firefox for the Firefox AppRTC test.
+    "pattern": ".",
+    "action" : ["python",
+                "webrtc.DEPS/download_firefox_nightly.py",
+                "-t", 
+                "firefox-nightly"],
   },
 ]
