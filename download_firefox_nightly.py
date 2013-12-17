@@ -52,7 +52,10 @@ def main():
   print 'Downloaded %s' % firefox_archive
 
   # Extract the archive.
+  # TODO(phoglund): implement on win/mac
   if sys.platform == 'darwin':
+    print "Temporarily disabled on mac..."
+    return 0
     volume = '/Volumes/Nightly'
     firefox_executable = '%s/FirefoxNightly.app' % target_dir
 
@@ -66,6 +69,8 @@ def main():
     tar_archive = tarfile.open(firefox_archive, 'r:bz2')
     tar_archive.extractall(path=target_dir)
   elif sys.platform == 'win32':
+    print "Temporarily disabled on win..."
+    return 0
     zip_archive = zipfile.ZipFile(firefox_archive)
     zip_archive.extractall(path=target_dir)
   else:
