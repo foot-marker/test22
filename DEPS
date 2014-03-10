@@ -53,6 +53,7 @@ hooks = [
   },
   {
     # Download test resources, i.e. video and audio files from Google Storage.
+    # These resources are used by the Android bots.
     "pattern": "\\.sha1",
     "action": ["download_from_google_storage",
                "--directory",
@@ -60,6 +61,17 @@ hooks = [
                "--num_threads=10",
                "--bucket", "chromium-webrtc-resources",
                "src/resources"],
+  },
+  {
+    # Download video files used by the video quality browser test.
+    # (chrome/browser/media/chrome_webrtc_video_quality_browsertest.cc)
+    "pattern": "\\.sha1",
+    "action": ["download_from_google_storage",
+               "--directory",
+               "--recursive",
+               "--num_threads=10",
+               "--bucket", "chromium-webrtc-resources",
+               "webrtc.DEPS/webrtc_videos"],
   },
   {
     # Download firefox for the Firefox AppRTC test.
