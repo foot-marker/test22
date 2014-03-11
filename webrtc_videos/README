@@ -1,0 +1,4 @@
+The reference files of the various resolutions must be frame-by-frame
+exact copies of each other - otherwise the WebRTC video quality test
+will produce incorrect results. The only addition must be the extra
+frame padding around the .y4m files.
