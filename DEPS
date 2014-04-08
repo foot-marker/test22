@@ -63,15 +63,16 @@ hooks = [
                "src/resources"],
   },
   {
-    # Download video files used by the video quality browser test.
-    # (chrome/browser/media/chrome_webrtc_video_quality_browsertest.cc)
+    # Download media files and tools used by the webrtc quality browser tests,
+    # chrome/browser/media/chrome_webrtc_audio_quality_browsertest.cc and
+    # chrome/browser/media/chrome_webrtc_video_quality_browsertest.cc.
     "pattern": "\\.sha1",
     "action": ["download_from_google_storage",
                "--directory",
                "--recursive",
                "--num_threads=10",
                "--bucket", "chromium-webrtc-resources",
-               "webrtc.DEPS/webrtc_videos"],
+               "src/chrome/test/data/webrtc/resources"],
   },
   {
     # Download firefox for the Firefox AppRTC test.
