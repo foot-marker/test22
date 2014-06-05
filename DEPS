@@ -1,15 +1,16 @@
-# DEPS file that pulls down dependencies that are needed to build and 
+# DEPS file that pulls down dependencies that are needed to build and
 # execute WebRTC Android tests from a Chromium checkout.
 
 vars = {
+  "chromium_git": "https://chromium.googlesource.com",
   # Use this googlecode_url variable only if there is an internal mirror for it.
   # If you do not know, use the full path while defining your new deps entry.
   "googlecode_url": "http://%s.googlecode.com/svn",
 }
 
 deps = {
-  "src/third_party/webrtc_apprtc":
-    (Var("googlecode_url") % "webrtc") + "/trunk/samples/js",
+  "webrtc-samples":
+    Var("chromium_git") + "/external/webrtc-samples.git",
   "webrtc.DEPS/third_party/manifestdestiny":
     "/trunk/deps/third_party/manifestdestiny@240893",
   "webrtc.DEPS/third_party/mozdownload":
@@ -26,9 +27,9 @@ deps = {
 
 deps_os = {
   "android": {
-    "src/data": 
+    "src/data":
       (Var("googlecode_url") % "webrtc") + "/trunk/data",
-    "src/resources": 
+    "src/resources":
       (Var("googlecode_url") % "webrtc") + "/trunk/resources",
     "src/third_party/gflags":
       (Var("googlecode_url") % "webrtc") + "/trunk/third_party/gflags",
@@ -79,7 +80,7 @@ hooks = [
     "pattern": ".",
     "action" : ["python",
                 "webrtc.DEPS/download_firefox_nightly.py",
-                "-t", 
+                "-t",
                 "firefox-nightly"],
   },
 ]

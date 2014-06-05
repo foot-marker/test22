@@ -14,8 +14,9 @@ import shutil
 
 
 if __name__ == '__main__':
+  web_samples_dir = 'webrtc-samples/samples/web'
   shutil.rmtree('src/out/apprtc', ignore_errors=True)
-  shutil.copytree('src/third_party/webrtc_apprtc/apprtc',
+  shutil.copytree(web_samples_dir + '/content/apprtc',
                   'src/out/apprtc', ignore=shutil.ignore_patterns('.svn'))
-  shutil.copyfile('src/third_party/webrtc_apprtc/base/adapter.js',
+  shutil.copyfile(web_samples_dir + '/js/adapter.js',
 		  'src/out/apprtc/js/adapter.js')
