@@ -70,10 +70,19 @@ hooks = [
     "pattern": "\\.sha1",
     "action": ["download_from_google_storage",
                "--directory",
-               "--recursive",
                "--num_threads=10",
                "--bucket", "chromium-webrtc-resources",
                "src/chrome/test/data/webrtc/resources"],
+  },
+  {
+    # Download tools. If you're not a googler, you need to comment this out
+    # and install the required tools yourself in the tools folder.
+    "pattern": "\\.sha1",
+    "action": ["download_from_google_storage",
+               "--directory",
+               "--num_threads=10",
+               "--bucket", "chrome-webrtc-resources",
+               "src/chrome/test/data/webrtc/resources/tools"],
   },
   {
     # Download firefox for the Firefox AppRTC test.
