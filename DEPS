@@ -1,5 +1,5 @@
 # DEPS file that pulls down dependencies that are needed to build and
-# execute WebRTC Android tests from a Chromium checkout.
+# execute WebRTC specific tests from a Chromium checkout.
 
 vars = {
   "chromium_git": "https://chromium.googlesource.com",
