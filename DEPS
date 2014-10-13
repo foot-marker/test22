@@ -2,40 +2,38 @@
 # execute WebRTC specific tests from a Chromium checkout.
 
 vars = {
-  "chromium_git": "https://chromium.googlesource.com",
-  # Use this googlecode_url variable only if there is an internal mirror for it.
-  # If you do not know, use the full path while defining your new deps entry.
-  "googlecode_url": "http://%s.googlecode.com/svn",
+  'git_url':
+     'https://chromium.googlesource.com'
 }
 
 deps = {
-  "webrtc-samples":
-    Var("chromium_git") + "/external/webrtc-samples.git",
-  "webrtc.DEPS/third_party/manifestdestiny":
-    "/trunk/deps/third_party/manifestdestiny@240893",
-  "webrtc.DEPS/third_party/mozdownload":
-    "/trunk/deps/third_party/mozdownload@240893",
-  "webrtc.DEPS/third_party/mozinfo":
-    "/trunk/deps/third_party/mozinfo@240893",
-  "webrtc.DEPS/third_party/mozprocess":
-    "/trunk/deps/third_party/mozprocess@240893",
-  "webrtc.DEPS/third_party/mozprofile":
-    "/trunk/deps/third_party/mozprofile@240893",
-  "webrtc.DEPS/third_party/mozrunner":
-    "/trunk/deps/third_party/mozrunner@240893",
+  'webrtc-samples':
+    Var('git_url') + '/external/webrtc-samples.git',
+  'webrtc.DEPS/third_party/manifestdestiny':
+    Var('git_url') + '/chromium/deps/manifestdestiny.git@46ae53ac463e23bfefec374a81806355ea598ac4',
+  'webrtc.DEPS/third_party/mozdownload':
+    Var('git_url') + '/chromium/deps/mozdownload.git@dcb2344c8f16caae7762c4557d08f2eca536a40a',
+  'webrtc.DEPS/third_party/mozinfo':
+    Var('git_url') + '/chromium/deps/mozinfo.git@f4cc257e21c48bc33dc1d12123d934a4dcaa120c',
+  'webrtc.DEPS/third_party/mozprocess':
+    Var('git_url') + '/chromium/deps/mozprocess.git@11d11bebc8517dcedec71f377cbec07fb91a3b1f',
+  'webrtc.DEPS/third_party/mozprofile':
+    Var('git_url') + '/chromium/deps/mozprofile.git@313295a0d9e1687dafa58e12f1f01b093a136446',
+  'webrtc.DEPS/third_party/mozrunner':
+    Var('git_url') + '/chromium/deps/mozrunner.git@efb11330692424f7aa5533839b0ae728bc5f30d1',
 }
 
 deps_os = {
-  "android": {
-    "src/data":
-      (Var("googlecode_url") % "webrtc") + "/trunk/data",
-    "src/resources":
-      (Var("googlecode_url") % "webrtc") + "/trunk/resources",
-    "src/third_party/gflags":
-      (Var("googlecode_url") % "webrtc") + "/trunk/third_party/gflags",
-    "src/third_party/gflags/src":
-      "http://gflags.googlecode.com/svn/trunk/src@84",
-  },
+  'android': {
+    'src/data':
+      Var('git_url') + '/external/webrtc/trunk/data.git',
+    'src/resources':
+      Var('git_url') + '/external/webrtc/trunk/resources.git',
+    'src/third_party/gflags':
+      Var('git_url') + '/external/webrtc/trunk/third_party/gflags.git',
+    'src/third_party/gflags/src':
+      Var('git_url') + '/external/gflags/src.git@e7390f9185c75f8d902c05ed7d20bb94eb914d0c',
+    },
 }
 
 hooks = [
