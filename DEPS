@@ -40,7 +40,13 @@ hooks = [
   {
     "pattern": ".",
     "action" : ["python",
-                "webrtc.DEPS/download_appengine_sdk.py",
+                "webrtc.DEPS/download_appengine_and_mercurial.py",
+                "webrtc.DEPS"],
+  },
+  {
+    "pattern": ".",
+    "action" : ["python",
+                "webrtc.DEPS/download_golang.py",
                 "webrtc.DEPS"],
   },
   {
@@ -49,6 +55,18 @@ hooks = [
     "pattern": ".",
     "action" : ["python",
                 "webrtc.DEPS/copy_apprtc.py"],
+  },
+  {
+    # Build Mercurial which is needed by the golang toolchain.
+    "pattern": ".",
+    "action" : ["python",
+                "webrtc.DEPS/build_mercurial_local.py"],
+  },
+  {
+    # Build AppRTC Collider using the golang toolchain.
+    "pattern": ".",
+    "action" : ["python",
+                "webrtc.DEPS/build_apprtc_collider.py"],
   },
   {
     # Download test resources, i.e. video and audio files from Google Storage.
