@@ -23,19 +23,6 @@ deps = {
     Var('git_url') + '/chromium/deps/mozrunner.git@efb11330692424f7aa5533839b0ae728bc5f30d1',
 }
 
-deps_os = {
-  'android': {
-    'src/data':
-      Var('git_url') + '/external/webrtc/trunk/data.git',
-    'src/resources':
-      Var('git_url') + '/external/webrtc/trunk/resources.git',
-    'src/third_party/gflags':
-      Var('git_url') + '/external/webrtc/trunk/third_party/gflags.git',
-    'src/third_party/gflags/src':
-      Var('git_url') + '/external/gflags/src.git@e7390f9185c75f8d902c05ed7d20bb94eb914d0c',
-    },
-}
-
 hooks = [
   {
     "pattern": ".",
@@ -67,17 +54,6 @@ hooks = [
     "pattern": ".",
     "action" : ["python",
                 "webrtc.DEPS/build_apprtc_collider.py"],
-  },
-  {
-    # Download test resources, i.e. video and audio files from Google Storage.
-    # These resources are used by the Android bots.
-    "pattern": "\\.sha1",
-    "action": ["download_from_google_storage",
-               "--directory",
-               "--recursive",
-               "--num_threads=10",
-               "--bucket", "chromium-webrtc-resources",
-               "src/resources"],
   },
   {
     # Download media files and tools used by the webrtc quality browser tests,
