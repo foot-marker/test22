@@ -11,7 +11,23 @@ import shutil
 import sys
 import subprocess
 import tarfile
+import time
 import zipfile
+
+
+def RunSubprocessWithRetry(cmd):
+  """Invokes the subprocess and backs off exponentially on fail."""
+  for i in range(5):
+    try:
+      subprocess.check_call(cmd)
+      return
+    except subprocess.CalledProcessError as exception:
+      backoff = pow(2, i)
+      print 'Got %s, retrying in %d seconds...' % (exception, backoff)
+      time.sleep(backoff)
+  
+  print 'Giving up.'
+  raise exception
 
 
 def DownloadFilesFromGoogleStorage(path):

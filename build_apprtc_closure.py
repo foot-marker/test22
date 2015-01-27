@@ -11,7 +11,6 @@ the node toolchain we downloaded earlier.
 
 import os
 import shutil
-import subprocess
 import sys
 
 import utils
@@ -34,14 +33,15 @@ def main():
     npm_bin = os.path.join(node_path, 'bin', 'npm')
     node_bin = os.path.join(node_path, 'bin', 'node')
 
-  subprocess.check_call([npm_bin, 'install'])
+  utils.RunSubprocessWithRetry([npm_bin, 'install'])
   local_grunt_bin = os.path.join('node_modules', 'grunt-cli', 'bin', 'grunt')
 
   if not os.path.exists(local_grunt_bin):
     return ('Missing grunt-cli in the webrtc-samples checkout; did '
             'npm install fail?')
 
-  subprocess.check_call([node_bin, local_grunt_bin, 'closurecompiler:debug'])
+  utils.RunSubprocessWithRetry([node_bin, local_grunt_bin,
+                               'closurecompiler:debug'])
 
 
 if __name__ == '__main__':
