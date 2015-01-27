@@ -37,6 +37,12 @@ hooks = [
                 "webrtc.DEPS"],
   },
   {
+    "pattern": ".",
+    "action" : ["python",
+                "webrtc.DEPS/download_node.py",
+                "webrtc.DEPS"],
+  },
+  {
     # "Build" AppRTC, i.e. move it to the out/ dir where the browser test
     # can find it. This is only done on runhooks.
     "pattern": ".",
@@ -54,6 +60,12 @@ hooks = [
     "pattern": ".",
     "action" : ["python",
                 "webrtc.DEPS/build_apprtc_collider.py"],
+  },
+  {
+    # Build AppRTC closure Javascript.
+    "pattern": ".",
+    "action" : ["python",
+                "webrtc.DEPS/build_apprtc_closure.py"],
   },
   {
     # Download media files and tools used by the webrtc quality browser tests,

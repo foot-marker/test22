@@ -9,8 +9,21 @@ import hashlib
 import os
 import shutil
 import sys
+import subprocess
 import tarfile
 import zipfile
+
+
+def DownloadFilesFromGoogleStorage(path):
+  print 'Downloading files in %s...' % path
+
+  extension = 'bat' if 'win32' in sys.platform else 'py'
+  cmd = ['download_from_google_storage.%s' % extension,
+         '--bucket=chromium-webrtc-resources',
+         '--auto_platform',
+         '--recursive',
+         '--directory', path]
+  subprocess.check_call(cmd)
 
 
 def ComputeSHA1(path):
