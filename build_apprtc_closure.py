@@ -22,6 +22,8 @@ import utils
 def _WorkaroundPhantomJsOnWin(samples_path):
   if utils.GetPlatform() is 'win':
     package_json = os.path.join(samples_path, 'package.json')
+    if not os.path.exists(package_json):
+      raise Exception('Expected %s to exist.' % os.path.abspath(package_json))
 
     for line in fileinput.input(package_json, inplace=True):
       if not 'phantomjs' in line:
@@ -36,8 +38,8 @@ def main():
   if not os.path.exists(samples_path):
     return 'Expected webrtc-samples at %s.' % os.path.abspath(samples_path)
 
-  os.chdir(samples_path)
   _WorkaroundPhantomJsOnWin(samples_path)
+  os.chdir(samples_path)
   
   if utils.GetPlatform() is 'win':
     npm_bin = os.path.join(node_path, 'npm.cmd')
