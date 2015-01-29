@@ -27,7 +27,7 @@ def _WorkaroundPhantomJsOnWin(samples_path):
 
     for line in fileinput.input(package_json, inplace=True):
       if not 'phantomjs' in line:
-        print line
+        sys.stdout.write(line)
 
 
 def main():
