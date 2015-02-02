@@ -31,12 +31,35 @@ def _Touch(a_file):
     os.utime(a_file, None)
 
 
-def _FindFallbackFirefoxBuild(target_dir):
+def _GetFirefoxArchivesSortedOnModifiedDate(target_dir):
   firefox_archives = glob.glob(os.path.join(target_dir, '*tar.bz2'))
   if not firefox_archives:
     return None
 
   firefox_archives.sort(key=os.path.getmtime, reverse=True)
+  return firefox_archives
+
+
+def _CleanOldFirefoxArchives(target_dir): 
+  firefox_archives = _GetFirefoxArchivesSortedOnModifiedDate(target_dir)
+  if not firefox_archives or len(firefox_archives) < 2:
+    return
+
+  # Keep the newest archive around as a fallback build and delete the rest.
+  rest = firefox_archives[1:]
+  print 'About to delete old Firefox archives %s.' % rest
+  for old_archive in rest:
+    try:
+      os.remove(old_archive)
+    except OSError:
+      pass
+
+
+def _FindFallbackFirefoxBuild(target_dir):
+  firefox_archives = _GetFirefoxArchivesSortedOnModifiedDate(target_dir)
+  if not firefox_archives:
+    return None
+
   newest_build = firefox_archives[0]
   build_age_seconds = time.time() - os.path.getmtime(newest_build)
   build_age_days = datetime.timedelta(seconds=build_age_seconds).days
@@ -116,6 +139,9 @@ def main():
   parser.add_option('-f', '--force', action='store_true',
                     help=('Force download even if the current nightly is '
                           'already downloaded.'))
+  parser.add_option('-c', '--clean-old-archives', action='store_true',
+                    help=('Clean old firefox archives; one will always be '
+                          'kept as a fallback.'))
   options, _args = parser.parse_args()
   if not options.target_dir:
     parser.error('You must specify the target directory.')
@@ -127,6 +153,9 @@ def main():
   firefox_archive = _MaybeDownload(target_dir, options.force)
   if firefox_archive:
     return _ExtractArchive(firefox_archive, target_dir)
+
+  if options.clean_old_archives:
+    _CleanOldFirefoxArchives(target_dir)
 
 if __name__ == '__main__':
   sys.exit(main())

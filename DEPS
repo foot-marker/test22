@@ -93,7 +93,8 @@ hooks = [
     "pattern": ".",
     "action" : ["python",
                 "webrtc.DEPS/download_firefox_nightly.py",
-                "-t",
+                "--clean-old-firefox-archives",
+                "--target-dir",
                 "firefox-nightly"],
   },
 ]
