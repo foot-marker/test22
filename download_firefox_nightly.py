@@ -139,7 +139,7 @@ def main():
   parser.add_option('-f', '--force', action='store_true',
                     help=('Force download even if the current nightly is '
                           'already downloaded.'))
-  parser.add_option('-c', '--clean-old-archives', action='store_true',
+  parser.add_option('-c', '--clean-old-firefox-archives', action='store_true',
                     help=('Clean old firefox archives; one will always be '
                           'kept as a fallback.'))
   options, _args = parser.parse_args()
