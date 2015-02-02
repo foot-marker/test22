@@ -154,7 +154,7 @@ def main():
   if firefox_archive:
     return _ExtractArchive(firefox_archive, target_dir)
 
-  if options.clean_old_archives:
+  if options.clean_old_firefox_archives:
     _CleanOldFirefoxArchives(target_dir)
 
 if __name__ == '__main__':
