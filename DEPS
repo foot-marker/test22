@@ -7,8 +7,10 @@ vars = {
 }
 
 deps = {
-  'webrtc-samples':
-    Var('git_url') + '/external/webrtc-samples.git',
+  # TODO(kjellander): Replace the AppRTC location with a GoB mirror as soon as
+  # crbug.com/455758 is resolved.
+  'apprtc':
+    'https://github.com/webrtc/apprtc.git',
   'webrtc.DEPS/third_party/manifestdestiny':
     Var('git_url') + '/chromium/deps/manifestdestiny.git@46ae53ac463e23bfefec374a81806355ea598ac4',
   'webrtc.DEPS/third_party/mozdownload':
@@ -62,10 +64,10 @@ hooks = [
                 "webrtc.DEPS/build_apprtc_collider.py"],
   },
   {
-    # Build AppRTC closure Javascript.
+    # Build the AppRTC App Engine Application.
     "pattern": ".",
     "action" : ["python",
-                "webrtc.DEPS/build_apprtc_closure.py"],
+                "webrtc.DEPS/build_apprtc_appengine_app.py"],
   },
   {
     # Download media files and tools used by the webrtc quality browser tests,

@@ -18,12 +18,12 @@ import utils
 
 
 def main():
-  web_samples_dir = os.path.join('webrtc-samples', 'samples', 'web')
+  apprtc_dir = os.path.join('apprtc', 'src')
   golang_workspace = os.path.join('src', 'out', 'go-workspace')
   shutil.rmtree(golang_workspace, ignore_errors=True)
   golang_workspace_src = os.path.join(golang_workspace, 'src')
 
-  collider_dir = os.path.join(web_samples_dir, 'content', 'apprtc', 'collider')
+  collider_dir = os.path.join(apprtc_dir, 'collider')
   shutil.copytree(collider_dir, golang_workspace_src,
                   ignore=shutil.ignore_patterns('.svn', '.git'))
 

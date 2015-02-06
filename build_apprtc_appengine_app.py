@@ -3,7 +3,7 @@
 # Use of this source code is governed by a BSD-style license that can be
 # found in the LICENSE file.
 
-"""Invokes the AppRTC closure compiler.
+"""Invokes grunt build on AppRTC.
 
 The AppRTC javascript code must be closure-compiled. This script uses
 the node toolchain we downloaded earlier.
@@ -34,12 +34,12 @@ def main():
   node_path = os.path.abspath('node')
   if not os.path.exists(node_path):
     return 'Expected node at %s.' % node_path
-  samples_path = os.path.join('src', 'out', 'webrtc-samples')
-  if not os.path.exists(samples_path):
-    return 'Expected webrtc-samples at %s.' % os.path.abspath(samples_path)
+  apprtc_path = os.path.join('src', 'out', 'apprtc')
+  if not os.path.exists(apprtc_path):
+    return 'Expected apprtc at %s.' % os.path.abspath(apprtc_path)
 
-  _WorkaroundPhantomJsOnWin(samples_path)
-  os.chdir(samples_path)
+  _WorkaroundPhantomJsOnWin(apprtc_path)
+  os.chdir(apprtc_path)
   
   if utils.GetPlatform() is 'win':
     npm_bin = os.path.join(node_path, 'npm.cmd')
@@ -52,11 +52,10 @@ def main():
   local_grunt_bin = os.path.join('node_modules', 'grunt-cli', 'bin', 'grunt')
 
   if not os.path.exists(local_grunt_bin):
-    return ('Missing grunt-cli in the webrtc-samples checkout; did '
+    return ('Missing grunt-cli in the apprtc checkout; did '
             'npm install fail?')
 
-  utils.RunSubprocessWithRetry([node_bin, local_grunt_bin,
-                               'closurecompiler:debug'])
+  utils.RunSubprocessWithRetry([node_bin, local_grunt_bin, 'build'])
 
 
 if __name__ == '__main__':
