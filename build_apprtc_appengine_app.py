@@ -55,10 +55,6 @@ def main():
     return ('Missing grunt-cli in the apprtc checkout; did '
             'npm install fail?')
 
-  if utils.GetPlatform() is 'win':
-    # https://github.com/webrtc/apprtc/issues/48
-    print 'grunt build is broken on win; cannot build apprtc'
-    return
   utils.RunSubprocessWithRetry([node_bin, local_grunt_bin, 'build'])
 
 
