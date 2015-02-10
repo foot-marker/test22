@@ -7,10 +7,8 @@ vars = {
 }
 
 deps = {
-  # TODO(kjellander): Replace the AppRTC location with a GoB mirror as soon as
-  # crbug.com/455758 is resolved.
   'apprtc':
-    'https://github.com/webrtc/apprtc.git',
+    Var('git_url') + '/external/webrtc/apprtc@0b1f7d332571db65b74ad92f67c04c2061cc86aa',
   'webrtc.DEPS/third_party/manifestdestiny':
     Var('git_url') + '/chromium/deps/manifestdestiny.git@46ae53ac463e23bfefec374a81806355ea598ac4',
   'webrtc.DEPS/third_party/mozdownload':
