@@ -24,6 +24,7 @@ sys.path.append(os.path.join(THIRD_PARTY_DIR, 'mozdownload'))
 sys.path.append(os.path.join(THIRD_PARTY_DIR, 'mozinfo'))
 
 from mozdownload import scraper
+import utils
 
 
 def _Touch(a_file):
@@ -58,7 +59,7 @@ def _CleanOldFirefoxArchives(target_dir):
 def _FindFallbackFirefoxBuild(target_dir):
   firefox_archives = _GetFirefoxArchivesSortedOnModifiedDate(target_dir)
   if not firefox_archives:
-    return None
+    return None, None
 
   newest_build = firefox_archives[0]
   build_age_seconds = time.time() - os.path.getmtime(newest_build)
@@ -101,33 +102,13 @@ def _MaybeDownload(target_dir, force):
 
 
 def _ExtractArchive(firefox_archive, target_dir):
-  # TODO(phoglund): implement on win/mac. See http://crbug.com/454303.
-  if sys.platform == 'darwin':
-    print "Disabled on mac..."
-    return 0
-    volume = '/Volumes/Nightly'
-    firefox_executable = '%s/FirefoxNightly.app' % target_dir
-
-    # Unmount any previous downloads.
-    subprocess.call(['hdiutil', 'detach', volume])
-
-    subprocess.check_call(['hdiutil', 'attach', firefox_archive])
-    shutil.copytree('%s/FirefoxNightly.app' % volume, firefox_executable)
-    subprocess.check_call(['hdiutil', 'detach', volume])
-  elif sys.platform == 'linux2':
+  if utils.GetPlatform() is 'linux':
     tar_archive = tarfile.open(firefox_archive, 'r:bz2')
     tar_archive.extractall(path=target_dir)
-  elif sys.platform == 'win32':
-    print "Disabled on win..."
-    return 0
-    zip_archive = zipfile.ZipFile(firefox_archive)
-    zip_archive.extractall(path=target_dir)
   else:
-    print >> sys.stderr, 'Unsupported platform: %s' % sys.platform
-    return 1
+    raise Exception('Unsupported platform: %s' % sys.platform)
 
   print 'Extracted %s' % firefox_archive
-  return 0
 
 
 def main():
@@ -146,13 +127,17 @@ def main():
   if not options.target_dir:
     parser.error('You must specify the target directory.')
 
+  if utils.GetPlatform() is not 'linux':
+    print 'This script is only supported on Linux for now.'
+    return
+
   target_dir = options.target_dir
   if not os.path.isdir(target_dir):
     os.mkdir(target_dir)
 
   firefox_archive = _MaybeDownload(target_dir, options.force)
   if firefox_archive:
-    return _ExtractArchive(firefox_archive, target_dir)
+    _ExtractArchive(firefox_archive, target_dir) 
 
   if options.clean_old_firefox_archives:
     _CleanOldFirefoxArchives(target_dir)
