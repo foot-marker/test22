@@ -1,6 +1,6 @@
-golang/linux/go.tar.gz
+golang/linux/go.*
 google-appengine.zip
-mercurial-src.tar.gz
-node/linux/node.tar.gz
+mercurial-src.*
+node/linux/node.*
 third_party/
 
