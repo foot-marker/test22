@@ -86,6 +86,8 @@ hooks = [
                "--directory",
                "--num_threads=10",
                "--bucket", "chrome-webrtc-resources",
+               "--auto_platform",
+               "--recursive",
                "src/chrome/test/data/webrtc/resources/tools"],
   },
   {
