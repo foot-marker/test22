@@ -10,6 +10,8 @@ import os
 import shutil
 import sys
 
+import utils
+
 
 def _ConfigureApprtcServerToDeveloperMode(app_yaml_path):
   if not os.path.exists(app_yaml_path):
@@ -25,7 +27,12 @@ def _ConfigureApprtcServerToDeveloperMode(app_yaml_path):
 
 def main():
   target_dir = os.path.join('src', 'out', 'apprtc')
-  shutil.rmtree(target_dir, ignore_errors=True)
+  if utils.GetPlatform() is 'win':
+    # Windows shutil can't handle the long node.js paths when deleting;
+    # work around the problem.
+    os.system('rmdir /s /q %s' % target_dir)
+  else:
+    shutil.rmtree(target_dir, ignore_errors=True)
   shutil.copytree('apprtc',
                   target_dir, ignore=shutil.ignore_patterns('.svn', '.git'))
 
