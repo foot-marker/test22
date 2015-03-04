@@ -1,6 +1,8 @@
-golang/linux/go.*
+golang/**/*zip
+golang/**/*tar.gz
 google-appengine.zip
 mercurial-src.*
-node/linux/node.*
+node/**/*zip
+node/**/*tar.gz
 third_party/
-
+*.pyc
