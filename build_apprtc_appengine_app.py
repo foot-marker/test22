@@ -12,6 +12,7 @@ the node toolchain we downloaded earlier.
 import fileinput
 import os
 import shutil
+import subprocess
 import sys
 
 import utils
@@ -28,6 +29,14 @@ def _WorkaroundPhantomJsOnWin(samples_path):
     for line in fileinput.input(package_json, inplace=True):
       if not 'phantomjs' in line:
         sys.stdout.write(line)
+
+
+def _WorkAroundMacNpmCorruptedDataOnInstall(command):
+  print 'Wiping .npm folder and trying again...'
+  npm_storage = os.path.expanduser('~/.npm')
+  assert npm_storage.endswith('.npm')
+  shutil.rmtree(npm_storage, ignore_errors=True)
+  utils.RunSubprocessWithRetry(command)
 
 
 def main():
@@ -48,7 +57,14 @@ def main():
     npm_bin = os.path.join(node_path, 'bin', 'npm')
     node_bin = os.path.join(node_path, 'bin', 'node')
 
-  utils.RunSubprocessWithRetry([npm_bin, 'install'])
+  command = [npm_bin, 'install']
+  try:
+    utils.RunSubprocessWithRetry(command)
+  except subprocess.CalledProcessError:
+    if utils.GetPlatform() is not 'mac':
+      raise
+    _WorkAroundMacNpmCorruptedDataOnInstall(command)
+
   local_grunt_bin = os.path.join('node_modules', 'grunt-cli', 'bin', 'grunt')
 
   if not os.path.exists(local_grunt_bin):
