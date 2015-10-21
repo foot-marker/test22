@@ -90,7 +90,7 @@ hooks = [
                "--recursive",
                "src/chrome/test/data/webrtc/resources/tools"],
   },
-  {
+  #{
     # Download firefox for the Firefox AppRTC test.
     # TODO(phoglund): Disabled due to http://crbug.com/545862.
     #"pattern": ".",
@@ -99,5 +99,5 @@ hooks = [
     #            "--clean-old-firefox-archives",
     #            "--target-dir",
     #            "firefox-nightly"],
-  },
+  #},
 ]
