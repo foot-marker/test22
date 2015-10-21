@@ -92,11 +92,12 @@ hooks = [
   },
   {
     # Download firefox for the Firefox AppRTC test.
-    "pattern": ".",
-    "action" : ["python",
-                "webrtc.DEPS/download_firefox_nightly.py",
-                "--clean-old-firefox-archives",
-                "--target-dir",
-                "firefox-nightly"],
+    # TODO(phoglund): Disabled due to http://crbug.com/545862.
+    #"pattern": ".",
+    #"action" : ["python",
+    #            "webrtc.DEPS/download_firefox_nightly.py",
+    #            "--clean-old-firefox-archives",
+    #            "--target-dir",
+    #            "firefox-nightly"],
   },
 ]
