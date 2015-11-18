@@ -12,7 +12,7 @@ deps = {
   'webrtc.DEPS/third_party/manifestdestiny':
     Var('git_url') + '/chromium/deps/manifestdestiny.git@46ae53ac463e23bfefec374a81806355ea598ac4',
   'webrtc.DEPS/third_party/mozdownload':
-    Var('git_url') + '/chromium/deps/mozdownload.git@dcb2344c8f16caae7762c4557d08f2eca536a40a',
+    Var('git_url') + '/chromium/deps/mozdownload.git@5d3e0bf7851b093ff9a89d45f13185691c496be',
   'webrtc.DEPS/third_party/mozinfo':
     Var('git_url') + '/chromium/deps/mozinfo.git@f4cc257e21c48bc33dc1d12123d934a4dcaa120c',
   'webrtc.DEPS/third_party/mozprocess':
@@ -21,6 +21,8 @@ deps = {
     Var('git_url') + '/chromium/deps/mozprofile.git@313295a0d9e1687dafa58e12f1f01b093a136446',
   'webrtc.DEPS/third_party/mozrunner':
     Var('git_url') + '/chromium/deps/mozrunner.git@efb11330692424f7aa5533839b0ae728bc5f30d1',
+  'webrtc.DEPS/third_party/requests/':
+    Var('git_url') + '/external/github.com/kennethreitz/requests.git@2128321b85dfd969498e5d1636dcc3c4a27917ba'
 }
 
 hooks = [
@@ -90,14 +92,14 @@ hooks = [
                "--recursive",
                "src/chrome/test/data/webrtc/resources/tools"],
   },
-  #{
+  {
     # Download firefox for the Firefox AppRTC test.
     # TODO(phoglund): Disabled due to http://crbug.com/545862.
-    #"pattern": ".",
-    #"action" : ["python",
-    #            "webrtc.DEPS/download_firefox_nightly.py",
-    #            "--clean-old-firefox-archives",
-    #            "--target-dir",
-    #            "firefox-nightly"],
-  #},
+    "pattern": ".",
+    "action" : ["python",
+                "webrtc.DEPS/download_firefox_nightly.py",
+                "--clean-old-firefox-archives",
+                "--target-dir",
+                "firefox-nightly"],
+  },
 ]

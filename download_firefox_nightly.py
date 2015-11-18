@@ -22,7 +22,9 @@ THIRD_PARTY_DIR = os.path.abspath(os.path.join(BASE_DIR, 'third_party'))
 
 sys.path.append(os.path.join(THIRD_PARTY_DIR, 'mozdownload'))
 sys.path.append(os.path.join(THIRD_PARTY_DIR, 'mozinfo'))
+sys.path.append(os.path.join(THIRD_PARTY_DIR, 'requests'))
 
+from mozdownload import errors
 from mozdownload import scraper
 import utils
 
@@ -70,7 +72,7 @@ def _FindFallbackFirefoxBuild(target_dir):
 
 def _MaybeDownload(target_dir, force):
   try:
-    downloader = scraper.DailyScraper(directory=target_dir, version=None)
+    downloader = scraper.DailyScraper(destination=target_dir)
     filename = downloader.build_filename(downloader.binary)
     firefox_archive = os.path.join(target_dir, filename)
 
@@ -85,7 +87,7 @@ def _MaybeDownload(target_dir, force):
     downloader.download()
     print 'Downloaded %s' % firefox_archive
     return firefox_archive
-  except scraper.NotFoundException as exception:
+  except errors.NotFoundError as exception:
     print 'Failed to download firefox: %s.' % exception
     fallback_build, age_days = _FindFallbackFirefoxBuild(target_dir)
 
