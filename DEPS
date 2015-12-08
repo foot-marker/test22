@@ -8,7 +8,7 @@ vars = {
 
 deps = {
   'apprtc':
-    Var('git_url') + '/external/webrtc/apprtc@e7f6cae744590cc2191e50fe673a0cca5d55b226',
+    Var('git_url') + '/external/webrtc/apprtc@3168981efed7629fabee731a5ee74d3716b50652',
   'webrtc.DEPS/third_party/manifestdestiny':
     Var('git_url') + '/chromium/deps/manifestdestiny.git@46ae53ac463e23bfefec374a81806355ea598ac4',
   'webrtc.DEPS/third_party/mozdownload':
