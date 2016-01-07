@@ -26,7 +26,7 @@ def _ConfigureApprtcServerToDeveloperMode(app_yaml_path):
     sys.stdout.write(line)
 
 
-def RemoveDirectory(*path):
+def RemoveDirectory(path):
   if utils.GetPlatform() == 'win':
     # Allow clobbering of out dir using cygwin until crbug.com/567538 is fixed.
     drive, path = os.path.splitdrive(os.path.abspath(path))
