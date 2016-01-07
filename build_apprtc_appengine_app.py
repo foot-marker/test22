@@ -35,7 +35,7 @@ def _WorkAroundMacNpmCorruptedDataOnInstall(command):
   print 'Wiping .npm folder and trying again...'
   npm_storage = os.path.expanduser('~/.npm')
   assert npm_storage.endswith('.npm')
-  shutil.rmtree(npm_storage, ignore_errors=True)
+  utils.RemoveDirectory(npm_storage)
   utils.RunSubprocessWithRetry(command)
 
 
@@ -49,7 +49,7 @@ def main():
 
   _WorkaroundPhantomJsOnWin(apprtc_path)
   os.chdir(apprtc_path)
-  
+
   if utils.GetPlatform() is 'win':
     npm_bin = os.path.join(node_path, 'npm.cmd')
     node_bin = os.path.join(node_path, 'node.exe')

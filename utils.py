@@ -25,7 +25,7 @@ def RunSubprocessWithRetry(cmd):
       backoff = pow(2, i)
       print 'Got %s, retrying in %d seconds...' % (exception, backoff)
       time.sleep(backoff)
-  
+
   print 'Giving up.'
   raise exception
 
@@ -56,12 +56,49 @@ def ComputeSHA1(path):
   return sha1.hexdigest()
 
 
+# Code partially copied from
+# https://cs.chromium.org#chromium/build/scripts/common/chromium_utils.py
+def RemoveDirectory(*path):
+  """Recursively removes a directory, even if it's marked read-only.
+
+  Remove the directory located at *path, if it exists.
+
+  shutil.rmtree() doesn't work on Windows if any of the files or directories
+  are read-only, which svn repositories and some .svn files are.  We need to
+  be able to force the files to be writable (i.e., deletable) as we traverse
+  the tree.
+
+  Even with all this, Windows still sometimes fails to delete a file, citing
+  a permission error (maybe something to do with antivirus scans or disk
+  indexing).  The best suggestion any of the user forums had was to wait a
+  bit and try again, so we do that too.  It's hand-waving, but sometimes it
+  works. :/
+  """
+  file_path = os.path.join(*path)
+  if not os.path.exists(file_path):
+    return
+
+  if sys.platform == 'win32':
+    # Give up and use cmd.exe's rd command.
+    file_path = os.path.normcase(file_path)
+    for _ in xrange(3):
+      print 'RemoveDirectory running %s' % (' '.join(
+          ['cmd.exe', '/c', 'rd', '/q', '/s', file_path]))
+      if not subprocess.call(['cmd.exe', '/c', 'rd', '/q', '/s', file_path]):
+        break
+      print '  Failed'
+      time.sleep(3)
+    return
+  else:
+    shutil.rmtree(file_path, ignore_errors=True)
+
+
 def DeleteDirNextToGclient(directory):
   # Sanity check to avoid nuking the wrong dirs.
   if not os.path.exists('.gclient'):
     raise Exception('Invoked from wrong dir; invoke from dir with .gclient')
   print 'Deleting %s in %s...' % (directory, os.getcwd())
-  shutil.rmtree(directory, ignore_errors=True)
+  RemoveDirectory(directory)
 
 
 def UnpackToWorkingDir(archive_path):
