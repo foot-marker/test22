@@ -1,9 +1,0 @@
-This zip file requires some manual work. First, download node.exe
-from http://nodejs.org/download/, then download the npm stuff from
-http://nodejs.org/dist/npm/. Unzip both in the same dir and do this:
-
-mkdir node
-mv node.exe node
-mv npm.cmd node
-mv node_modules node
-zip -r node.zip node

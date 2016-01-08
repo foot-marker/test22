@@ -7,8 +7,6 @@ vars = {
 }
 
 deps = {
-  'apprtc':
-    Var('git_url') + '/external/webrtc/apprtc@3168981efed7629fabee731a5ee74d3716b50652',
   'webrtc.DEPS/third_party/manifestdestiny':
     Var('git_url') + '/chromium/deps/manifestdestiny.git@46ae53ac463e23bfefec374a81806355ea598ac4',
   'webrtc.DEPS/third_party/mozdownload':
@@ -29,19 +27,13 @@ hooks = [
   {
     "pattern": ".",
     "action" : ["python",
-                "webrtc.DEPS/download_appengine_and_mercurial.py",
+                "webrtc.DEPS/download_apprtc_appengine_and_mercurial.py",
                 "webrtc.DEPS"],
   },
   {
     "pattern": ".",
     "action" : ["python",
                 "webrtc.DEPS/download_golang.py",
-                "webrtc.DEPS"],
-  },
-  {
-    "pattern": ".",
-    "action" : ["python",
-                "webrtc.DEPS/download_node.py",
                 "webrtc.DEPS"],
   },
   {
@@ -62,12 +54,6 @@ hooks = [
     "pattern": ".",
     "action" : ["python",
                 "webrtc.DEPS/build_apprtc_collider.py"],
-  },
-  {
-    # Build the AppRTC App Engine Application.
-    "pattern": ".",
-    "action" : ["python",
-                "webrtc.DEPS/build_apprtc_appengine_app.py"],
   },
   {
     # Download media files and tools used by the webrtc quality browser tests,

@@ -44,6 +44,9 @@ def main(argv):
   mercurial_tar_path = os.path.join(webrtc_deps_path, 'mercurial-src.tar.gz')
   old_mercurial_sha1 = utils.ComputeSHA1(mercurial_tar_path)
 
+  apprtc_zip_path = os.path.join(webrtc_deps_path, 'prebuilt_apprtc.zip')
+  old_apprtc_sha1 = utils.ComputeSHA1(mercurial_tar_path)
+
   _DownloadResources(webrtc_deps_path)
 
   if old_appengine_sha1 != utils.ComputeSHA1(appengine_zip_path):
@@ -54,6 +57,10 @@ def main(argv):
     utils.DeleteDirNextToGclient('mercurial')
     utils.UnpackToWorkingDir(mercurial_tar_path)
     _StripVersionNumberFromMercurialFolder()
+
+  if old_apprtc_sha1 != utils.ComputeSHA1(apprtc_zip_path):
+    utils.DeleteDirNextToGclient('apprtc')
+    utils.UnpackToWorkingDir(apprtc_zip_path)
 
 if __name__ == '__main__':
   sys.exit(main(sys.argv))
