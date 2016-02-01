@@ -46,7 +46,7 @@ def main():
   shutil.copytree('apprtc',
                   target_dir, ignore=shutil.ignore_patterns('.svn', '.git'))
 
-  app_yaml_path = os.path.join(target_dir, 'src', 'app_engine', 'app.yaml')
+  app_yaml_path = os.path.join(target_dir, 'out', 'app_engine', 'app.yaml')
   _ConfigureApprtcServerToDeveloperMode(app_yaml_path)
 
 
