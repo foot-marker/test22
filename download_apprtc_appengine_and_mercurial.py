@@ -45,7 +45,7 @@ def main(argv):
   old_mercurial_sha1 = utils.ComputeSHA1(mercurial_tar_path)
 
   apprtc_zip_path = os.path.join(webrtc_deps_path, 'prebuilt_apprtc.zip')
-  old_apprtc_sha1 = utils.ComputeSHA1(mercurial_tar_path)
+  old_apprtc_sha1 = utils.ComputeSHA1(apprtc_zip_path)
 
   _DownloadResources(webrtc_deps_path)
 
