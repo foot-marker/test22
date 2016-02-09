@@ -13,6 +13,7 @@ import os
 import shutil
 import subprocess
 import sys
+import tempfile
 
 import utils
 
@@ -39,6 +40,14 @@ def main():
                         env=golang_env)
   subprocess.check_call([golang_path, 'build', 'collidermain'],
                         env=golang_env)
+
+  # Delete everything in the workspace except the build artifacts.
+  go_bin_dir = os.path.join(golang_workspace, 'bin')
+  tmp_dir = tempfile.mkdtemp()
+  shutil.move(go_bin_dir, tmp_dir)
+  shutil.rmtree(golang_workspace)
+  shutil.move(os.path.join(tmp_dir, 'bin'), go_bin_dir)
+  os.rmdir(tmp_dir)
 
 if __name__ == '__main__':
   sys.exit(main())
