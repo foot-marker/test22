@@ -45,7 +45,8 @@ def main():
   go_bin_dir = os.path.join(golang_workspace, 'bin')
   tmp_dir = tempfile.mkdtemp()
   shutil.move(go_bin_dir, tmp_dir)
-  shutil.rmtree(golang_workspace)
+  utils.RemoveDirectory(golang_workspace)
+  os.makedirs(golang_workspace)
   shutil.move(os.path.join(tmp_dir, 'bin'), go_bin_dir)
   os.rmdir(tmp_dir)
 
