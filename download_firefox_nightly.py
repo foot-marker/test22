@@ -94,9 +94,9 @@ def _MaybeDownload(target_dir, force):
     if not fallback_build:
       raise Exception('We failed to download Firefox and we have no builds to '
                       'fall back on; failing...')
-    if age_days > 14:
+    if age_days > 3:
       raise Exception('We have failed to download firefox builds for more '
-                      'than 14 days now: failing so someone looks at it. The '
+                      'than 3 days now: failing so someone looks at it. The '
                       'most recent build we have is %d days old.' % age_days)
 
     print 'Using %s instead; it is %d days old.' % (fallback_build, age_days)
