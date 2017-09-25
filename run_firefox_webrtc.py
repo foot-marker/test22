@@ -21,7 +21,7 @@ sys.path.append(os.path.join(THIRD_PARTY_DIR, 'mozprofile'))
 sys.path.append(os.path.join(THIRD_PARTY_DIR, 'mozrunner'))
 
 from mozprofile import profile
-from mozrunner import runner
+import mozrunner
 
 WEBRTC_PREFERENCES = {
     # Automatically gives permission to access the camera/microphone and
@@ -43,9 +43,9 @@ def main():
     parser.error('You must specify the web page to browse to.')
 
   firefox_profile = profile.FirefoxProfile(preferences=WEBRTC_PREFERENCES)
-  firefox_runner = runner.FirefoxRunner(profile=firefox_profile,
-                                        binary=options.binary,
-                                        cmdargs=[options.webpage])
+  firefox_runner = mozrunner.FirefoxRunner(profile=firefox_profile,
+                                           binary=options.binary,
+                                           cmdargs=[options.webpage])
   def KillFirefox(signum, frame):
     firefox_runner.stop()
   signal.signal(signal.SIGTERM, KillFirefox)
