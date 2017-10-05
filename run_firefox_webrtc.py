@@ -27,6 +27,10 @@ WEBRTC_PREFERENCES = {
     # Automatically gives permission to access the camera/microphone and
     # bypasses the permission/selection dialog.
     'media.navigator.permission.disabled': True,
+
+    # TODO(phoglund): Disable e10s to see if we're still affected by
+    # the sandbox audio issue.
+    'browser.tabs.remote.autostart': False,
 }
 
 def main():
