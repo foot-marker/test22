@@ -1,47 +1,12 @@
 # DEPS file that pulls down dependencies that are needed to build and
 # execute WebRTC specific tests from a Chromium checkout.
 
-vars = {
-  'git_url':
-     'https://chromium.googlesource.com'
-}
-
-deps = {
-  'webrtc.DEPS/third_party/requests/':
-    Var('git_url') + '/external/github.com/kennethreitz/requests.git@2128321b85dfd969498e5d1636dcc3c4a27917ba'
-}
-
 hooks = [
   {
     "pattern": ".",
     "action" : ["python",
-                "webrtc.DEPS/download_apprtc_appengine_and_mercurial.py",
-                "webrtc.DEPS"],
-  },
-  {
-    "pattern": ".",
-    "action" : ["python",
-                "webrtc.DEPS/download_golang.py",
-                "webrtc.DEPS"],
-  },
-  {
-    # "Build" AppRTC, i.e. move it to the out/ dir where the browser test
-    # can find it. This is only done on runhooks.
-    "pattern": ".",
-    "action" : ["python",
-                "webrtc.DEPS/copy_apprtc.py"],
-  },
-  {
-    # Build Mercurial which is needed by the golang toolchain.
-    "pattern": ".",
-    "action" : ["python",
-                "webrtc.DEPS/build_mercurial_local.py"],
-  },
-  {
-    # Build AppRTC Collider using the golang toolchain.
-    "pattern": ".",
-    "action" : ["python",
-                "webrtc.DEPS/build_apprtc_collider.py"],
+                "src/third_party/webrtc/rtc_tools/testing/setup_apprtc.py",
+                "src/out"],
   },
   {
     # Download media files and tools used by the webrtc quality browser tests,
